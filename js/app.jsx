@@ -10,9 +10,7 @@ class FirsBox extends React.Component {
         }
     }
     render() {
-
         return (
-
             <div className="col-sm-6 col-lg-3" >
                 <div className="card text-white bg-primary">
                     <div className="card-body pb-0">
@@ -27,7 +25,6 @@ class FirsBox extends React.Component {
                     </div>
                 </div>
             </div>
-
         )
     }
     componentDidMount() {
@@ -50,9 +47,7 @@ class SecondBox extends React.Component {
         }
     }
     render() {
-
         return (
-
             <div className="col-sm-6 col-lg-3" >
                 <div className="card text-white bg-danger">
                     <div className="card-body pb-0">
@@ -67,7 +62,6 @@ class SecondBox extends React.Component {
                     </div>
                 </div>
             </div>
-
         )
     }
     componentDidMount() {
@@ -78,11 +72,9 @@ class SecondBox extends React.Component {
             this.setState({
                 description: data.data.name_pl
             })
-
         })
     }
 }
-
 class HolidaysTable extends React.Component {
     constructor(props) {
         super(props)
@@ -107,11 +99,11 @@ class HolidaysTable extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.swieta.map((el,) => {
+                            {this.state.swieta.map((el, ) => {
                                 return <tr>
                                     <td>{el.name}</td>
                                     <td><center>{el.date}</center></td>
-                                    <td style={{color: "red"}}><center><b>{el.user}</b></center></td>
+                                    <td style={{ color: "red" }}><center><b>{el.user}</b></center></td>
                                     <td>
                                         <span className="badge badge-success">Active</span>
                                     </td>
@@ -132,17 +124,12 @@ class HolidaysTable extends React.Component {
             for (let key in data.holidays) {
                 data.holidays[key].forEach(el => {
                     arrOne.push(el)
-
                 });
-
             }
-
             this.analyticsHolidays(arrOne);
         })
     }
-
     analyticsHolidays(holidays) {
-
         let url = `http://localhost:3000/users`
         fetch(url).then(r => {
             return r.json()
@@ -165,7 +152,6 @@ class HolidaysTable extends React.Component {
         })
     }
 }
-
 class CityTable extends React.Component {
     constructor(props) {
         super(props)
@@ -184,19 +170,14 @@ class CityTable extends React.Component {
                         <thead>
                             <tr>
                                 <th>Miasta</th>
-                                <th><center>Ilosc Uzytkownikw</center></th>
-                                <th>Status</th>
+                                <th><center>Ilosc Uzytkowników</center></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.city.map((el,i) => {
+                            {this.state.city.map((el,) => {
                                 return <tr>
-                                    <td>{el.cities}</td>
-                                    <td><center>{el.numbers}</center></td>
-                                    <td style={{color: "red"}}><center><b>{el.cities}</b></center></td>
-                                    <td>
-                                        <span className="badge badge-success">Active</span>
-                                    </td>
+                                    <td style={{color:"blue"}}><i>{el.cities}</i></td>
+                                    <td style={{color:"red"}}><center><b>{el.numbers}</b></center></td>
                                 </tr>
                             })}
                         </tbody>
@@ -205,46 +186,35 @@ class CityTable extends React.Component {
             </div>
         )
     }
-    componentDidMount(){
+    componentDidMount() {
         const arrCity = []
-        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx2Bo6xlAgEMzb_5tVG_xV3Uk2qF4sCTaq2342gPH0G-yODUBbW7P6SKNsRs9AscnU_8ZE1zeWErBC8iK0ndVvIjCtZ2VUaiVx_ih-zKOo_YQJHdXHD5vJkbyeJPw`
-        fetch(url).then(r=>{
-          return r.json()
-        }).then(datafirst=>{
-            
-            
-           for(let i = 0; i < datafirst.rows.length;i++){
-            arrCity.push({
-                "cities":datafirst.rows[i][0],
-                "numbers":datafirst.rows[i][1]})
-       }
-            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx2Bo6xlAgEMzb_5tVG_xV3Uk2qF4sCTaq2342gPH0G-yODUBbW7P6SKNsRs9AscnU_8ZE1zeWErBC8iK0ndVvIjCtZ2VUaiVx_ih-zKOo_YQJHdXHD5vJkbyeJPw`
-        fetch(url).then(r=>{
-          return r.json()
-        }).then(dataSecond=>{
-            for(let j = 0; j < dataSecond.rows.length;j++){
+        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx2Bktm3eLJPS0gf6gmcFb6j5AboSi6DM30Xnb3dnGNlhMwpmq3-8DxkjxZAg5YWMsMcTxepm4qi2e_bgMU7yobh6ZW6wD5ROJLxiC5HCFANMr3TD7-nrvOzMCs3g`
+        fetch(url).then(r => {
+            return r.json()
+        }).then(datafirst => {
+            for (let i = 0; i < datafirst.rows.length; i++) {
                 arrCity.push({
-                    "cities":dataSecond.rows[j][0],
-                    "numbers":dataSecond.rows[j][1]
+                    "cities": datafirst.rows[i][0],
+                    "numbers": datafirst.rows[i][1]
                 })
-           }
-           this.setState({
-            city: arrCity
-            
+            }
+            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx2BqNR5Oj1gZdMZlqMVPBQWsnYbtcm2w06zEggTuPS1Mjp0suFVwl4fKoc7iNHO-ejcMXgj7urzGPLjj3GWucWRzgVcEnGW1oOB-cgR-Rw4vCSmVRZHwQtpNjDSQ`
+            fetch(url).then(r => {
+                return r.json()
+            }).then(dataSecond => {
+                for (let j = 0; j < dataSecond.rows.length; j++) {
+                    arrCity.push({
+                        "cities": dataSecond.rows[j][0],
+                        "numbers": dataSecond.rows[j][1]
+                    })
+                }
+                this.setState({
+                    city: arrCity
+                })
+            })
         })
-        
-        })
-            
-        })
-        
-        
-        
-      
     }
-
-    
 }
-
 class App extends React.Component {
     render() {
         return (
@@ -257,7 +227,6 @@ class App extends React.Component {
         )
     }
 }
-
 document.addEventListener('DOMContentLoaded', function () {
     ReactDOM.render(
         <App />,
