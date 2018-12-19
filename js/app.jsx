@@ -135,7 +135,7 @@ class HolidaysTable extends React.Component {
             return r.json()
         }).then(data => {
 
-            const arr = holidays.map((el, i) => {
+            const arr = holidays.map((el) => {
                 for (let j = 0; j < data.length; j++) {
 
                     if (el.date == data[j].data) {
@@ -156,11 +156,69 @@ class CityTable extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            city: []
+            city: [],
+            sortType: "alfabFromEnd",
+            ArrowNames: "fas fa-arrow-down",
+            ArrowUsers: "fas fa-arrow-down"
         }
     }
+    ClickNumb = () => {
+        if(this.state.sortType === "numFromsmall"){
+            this.setState({
+                sortType: "numFrombig",
+                ArrowNames: null,
+                ArrowUsers: "fas fa-arrow-up"
+            })}
+            else{
+                this.setState({
+                    sortType: "numFromsmall",
+                    ArrowNames: null,
+                    ArrowUsers: "fas fa-arrow-down"
+                })}
+    }
+
+    Click = () => {
+        if(this.state.sortType === "alfabFromEnd"){
+        this.setState({
+            sortType: "alfabFromBegin",
+            ArrowNames: "fas fa-arrow-up",
+            ArrowUsers: null
+        })}
+        else{
+            this.setState({
+                sortType: "alfabFromEnd",
+                ArrowNames: "fas fa-arrow-down",
+                ArrowUsers: null
+            })}
+    }
+    Rule() {
+        if(this.state.sortType === "alfabFromEnd") {
+            return this.state.city.sort(function (a, b) {
+                if (b.cities < a.cities) { return -1; }
+                if (b.cities > a.cities) { return 1; };
+            })
+        }
+        else if(this.state.sortType === "alfabFromBegin") {
+            return this.state.city.sort(function (a, b) {
+                if (a.cities < b.cities) { return -1; }
+                if (a.cities > b.cities) { return 1; };
+            })
+        }
+        else if(this.state.sortType === "numFromsmall") {
+            return this.state.city.sort(function (a, b) {
+                return a.numbers - b.numbers;
+            })
+        } else if(this.state.sortType === "numFrombig") {
+            return this.state.city.sort(function (a, b) {
+                return b.numbers - a.numbers;
+            })
+        }
+
+    }
     render() {
+
         return (
+
 
             <div className="card">
                 <div className="card-header">
@@ -169,15 +227,15 @@ class CityTable extends React.Component {
                     <table className="table table-responsive-sm table-bordered">
                         <thead>
                             <tr>
-                                <th>Miasta</th>
-                                <th><center>Ilosc Uzytkowników</center></th>
+                                <th onClick={this.Click}>Miasta     <i className={this.state.ArrowNames}></i></th>
+                                <th onClick={this.ClickNumb}><center>Ilosc Uzytkowników <i className={this.state.ArrowUsers}></i>  </center></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.city.map((el,) => {
+                            {this.Rule().map((el) => {
                                 return <tr>
-                                    <td style={{color:"blue"}}><i>{el.cities}</i></td>
-                                    <td style={{color:"red"}}><center><b>{el.numbers}</b></center></td>
+                                    <td style={{ color: "blue" }}><i>{el.cities}</i></td>
+                                    <td style={{ color: "red" }}><center><b>{el.numbers}</b></center></td>
                                 </tr>
                             })}
                         </tbody>
@@ -188,7 +246,7 @@ class CityTable extends React.Component {
     }
     componentDidMount() {
         const arrCity = []
-        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx2Bktm3eLJPS0gf6gmcFb6j5AboSi6DM30Xnb3dnGNlhMwpmq3-8DxkjxZAg5YWMsMcTxepm4qi2e_bgMU7yobh6ZW6wD5ROJLxiC5HCFANMr3TD7-nrvOzMCs3g`
+        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx3BqvHor3vulaKZcsx_tlD2z0P1pk6p83d3ipF0THu635s7qXNHraeiKP0IIsR9-gpXu9hm7HQJdISYas3MiP0zJk2NElR4sBwlZyVaEoM02Slii8ljfSlpAeQ2A`
         fetch(url).then(r => {
             return r.json()
         }).then(datafirst => {
@@ -198,7 +256,7 @@ class CityTable extends React.Component {
                     "numbers": datafirst.rows[i][1]
                 })
             }
-            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx2BqNR5Oj1gZdMZlqMVPBQWsnYbtcm2w06zEggTuPS1Mjp0suFVwl4fKoc7iNHO-ejcMXgj7urzGPLjj3GWucWRzgVcEnGW1oOB-cgR-Rw4vCSmVRZHwQtpNjDSQ`
+            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx3BqvHor3vulaKZcsx_tlD2z0P1pk6p83d3ipF0THu635s7qXNHraeiKP0IIsR9-gpXu9hm7HQJdISYas3MiP0zJk2NElR4sBwlZyVaEoM02Slii8ljfSlpAeQ2A`
             fetch(url).then(r => {
                 return r.json()
             }).then(dataSecond => {
