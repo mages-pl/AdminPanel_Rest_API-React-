@@ -12,7 +12,7 @@ class HolidaysTable extends React.Component {
 
             <div className="card">
                 <div className="card-header">
-                    <i className="fa fa-align-justify"></i> Swieta wejscia uzytkownikow</div>
+                    <i className="fa fa-align-justify"></i> Wejscia uzytkownikow - Swieta</div>
                 <div className="card-body">
                     <table className="table table-responsive-sm table-bordered">
                         <thead>

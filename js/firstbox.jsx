@@ -3,10 +3,14 @@ class FirsBox extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            description: "--"
+            tempC: "--",
+            tempF: "--"
         }
     }
+    
     render() {
+        let d = new Date();
+        let n = d.toLocaleDateString();
         return (
             <div className="col-sm-6 col-lg-3" >
                 <div className="card text-white bg-primary">
@@ -14,10 +18,11 @@ class FirsBox extends React.Component {
                         <div className="btn-group float-right">
 
                         </div>
-                        <div className="text-value">{this.state.description}°C</div>
-                        <div>Temperatura we Wrocławiu </div>
+                        <div className="text-value">{this.state.tempC}°C</div>
+                        <div className="text-value">{this.state.tempF}°F</div>
+                        <div>Temperatura we Wrocławiu {n} </div>
                     </div>
-                    <div className="chart-wrapper mt-3 mx-3" style={{ height: "70px" }}>
+                    <div className="chart-wrapper mt-3 mx-3" style={{ height: "20px" }}>
 
                     </div>
                 </div>
@@ -30,7 +35,8 @@ class FirsBox extends React.Component {
             return r.json()
         }).then(data => {
             this.setState({
-                description: data.response.ob.tempC
+                tempC: data.response.ob.tempC,
+                tempF: data.response.ob.tempF
             })
             console.log()
         })

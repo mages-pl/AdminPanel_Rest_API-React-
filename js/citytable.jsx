@@ -128,7 +128,7 @@ class CityTable extends React.Component {
         return (
             <div className="card">
                 <div className="card-header">
-                    <i className="fa fa-align-justify"></i> Swieta wejscia uzytkownikow</div>
+                    <i className="fa fa-align-justify"></i> Wejscia uzytkownikow - Miasta</div>
                 <div className="card-body">
                     <table className="table table-responsive-sm table-bordered">
                         <thead>
@@ -167,7 +167,7 @@ class CityTable extends React.Component {
     componentDidMount() {
         const arrCity = []
         let other = 0;
-        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx4BhuRDgrAH-Nfllw3xOVk17SjIkigKAQAbZV4qplLTySEjbwKYvAHqPlZze71hCDfmHXGNF8NGq7tNJvgafs7LVDIS3vsI_U3Xc3K1Rl58Pns9Tt-ThH2wUQHRA`
+        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx4BuicyP9NylSxJ4_ZHeuhqnRz6l7vjEzputtTvo8Y1aHwXQCBLVbP8U_SsAP6UXgNf3KeHKwgz_MRIM7SyPric5PnrChXYFTkm4PsNknjNWlwZmDBE3eOHjO2pw`
         fetch(url).then(r => {
             return r.json()
         }).then(datafirst => {
@@ -182,7 +182,7 @@ class CityTable extends React.Component {
                     other += +datafirst.rows[i][1]
                 }
             }
-            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx4BhuRDgrAH-Nfllw3xOVk17SjIkigKAQAbZV4qplLTySEjbwKYvAHqPlZze71hCDfmHXGNF8NGq7tNJvgafs7LVDIS3vsI_U3Xc3K1Rl58Pns9Tt-ThH2wUQHRA`
+            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx4BuicyP9NylSxJ4_ZHeuhqnRz6l7vjEzputtTvo8Y1aHwXQCBLVbP8U_SsAP6UXgNf3KeHKwgz_MRIM7SyPric5PnrChXYFTkm4PsNknjNWlwZmDBE3eOHjO2pw`
             fetch(url).then(r => {
                 return r.json()
             }).then(dataSecond => {
