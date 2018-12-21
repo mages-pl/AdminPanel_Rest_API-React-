@@ -29,45 +29,56 @@ class CityTable extends React.Component {
             })
         }
     }
-    
-    PageNumber(e){
-        console.log(e)
+    PageNumber(e) {
+        this.setState({
+            pageNumber: e,
+            next: false,
+            prev: false
+        })
+    }
+    nextPageNumber(e) {
+        if (this.state.pageNumber < 10) {
+
             this.setState({
-                pageNumber : e,
-                next: false,
+                pageNumber: e + 1,
+                next: true,
                 prev: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        next: false
+                    })
+                }, 100)
             })
+        }
+        else {
+            this.setState({
+                pageNumber: 0
+            })
+        }
     }
-    nextPageNumber(e){
-        console.log(e)
-        if(this.state.pageNumber < 10){
+    prevPageNumber(e) {
+        if (this.state.pageNumber > 0) {
             this.setState({
-                pageNumber : e + 1,
-                next : true,
-                prev: false
-            })}
-            else{
-                this.setState({
-                    pageNumber : 0
-                })}
-            }
-    
-    prevPageNumber(e){
-        console.log(e)
-        if(this.state.pageNumber > 0){
-            this.setState({
-                pageNumber : e - 1,
+                pageNumber: e - 1,
                 prev: true,
-                next:false
-            })}
-            else{
-                this.setState({
-                    pageNumber : 10
-                })
-
+                next: false
+            }, () => {
+                setTimeout(() => {
+                    this.setState({
+                        prev: false
+                    })
+                }, 100)
             }
-    }
+            )
+        }
+        else {
+            this.setState({
+                pageNumber: 10
+            })
 
+        }
+    }
     Click = () => {
         if (this.state.sortType === "alfabFromEnd") {
             this.setState({
@@ -109,22 +120,20 @@ class CityTable extends React.Component {
     }
     createPagination = () => {
         let table = []
-    
+
         for (let i = 0; i <= 10; i++) {
-          table.push(
-              <li onClick={() => this.PageNumber(i)} className={`page-item ${this.state.pageNumber == i && "active"}`}>
-              <a   className="page-link">{i+1}</a>
-            </li>
-          )
+            table.push(
+                <li onClick={() => this.PageNumber(i)} className={`page-item ${this.state.pageNumber == i && "active"}`}>
+                    <a className="page-link">{i + 1}</a>
+                </li>
+            )
         }
         return table
-      }
+    }
     render() {
         const page = this.state.pageNumber;
         const sortedArray = this.Rule();
         const arr = sortedArray.slice(page * 10, page * 10 + 10);
-        
-
         return (
             <div className="card">
                 <div className="card-header">
@@ -132,7 +141,7 @@ class CityTable extends React.Component {
                 <div className="card-body">
                     <table className="table table-responsive-sm table-bordered">
                         <thead>
-                        
+
                             <tr>
                                 <th onClick={this.Click}>Miasta     <i className={this.state.ArrowNames}></i></th>
                                 <th onClick={this.ClickNumb}><center>Ilosc Uzytkowników <i className={this.state.ArrowUsers}></i>  </center></th>
@@ -146,20 +155,20 @@ class CityTable extends React.Component {
                                 </tr>
                             })}
                         </tbody>
-                        
+
                     </table>
                     <nav aria-label="Page navigation example">
-                                <ul className="pagination justify-content-center">
-                                <li onClick={() => this.prevPageNumber(this.state.pageNumber)} className={`page-item ${this.state.prev == true && "active"}`}>
-                                    <a className="page-link" tabindex="-1">Previous</a>
-                                  </li>
-                                  {this.createPagination()}
-                                  
-                                  <li onClick={() => this.nextPageNumber(this.state.pageNumber)} className={`page-item ${this.state.next == true && "active"}`}>
-                                    <a className="page-link">Next</a>
-                                  </li>
-                                </ul>
-                              </nav>
+                        <ul className="pagination justify-content-center">
+                            <li onClick={() => this.prevPageNumber(this.state.pageNumber)} className={`page-item ${this.state.prev == true && "active"}`}>
+                                <a className="page-link" tabindex="-1">Previous</a>
+                            </li>
+                            {this.createPagination()}
+
+                            <li onClick={() => this.nextPageNumber(this.state.pageNumber)} className={`page-item ${this.state.next == true && "active"}`}>
+                                <a className="page-link">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         )
@@ -167,7 +176,7 @@ class CityTable extends React.Component {
     componentDidMount() {
         const arrCity = []
         let other = 0;
-        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx4BuicyP9NylSxJ4_ZHeuhqnRz6l7vjEzputtTvo8Y1aHwXQCBLVbP8U_SsAP6UXgNf3KeHKwgz_MRIM7SyPric5PnrChXYFTkm4PsNknjNWlwZmDBE3eOHjO2pw`
+        let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&access_token=ya29.Glx5BkFSvgTuzKvIuldWOloDwUDZGNGynbD2l2uOutPTa5IS6TE7QDyJFhCD9ZyCjDkJRHddYxHffIoRMtC1U0GfdHzA__956pC81pD2DuAJxDq87y4z9OPizuE83Q`
         fetch(url).then(r => {
             return r.json()
         }).then(datafirst => {
@@ -182,7 +191,7 @@ class CityTable extends React.Component {
                     other += +datafirst.rows[i][1]
                 }
             }
-            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx4BuicyP9NylSxJ4_ZHeuhqnRz6l7vjEzputtTvo8Y1aHwXQCBLVbP8U_SsAP6UXgNf3KeHKwgz_MRIM7SyPric5PnrChXYFTkm4PsNknjNWlwZmDBE3eOHjO2pw`
+            let url = `https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A98761090&start-date=2017-01-01&end-date=2017-12-31&metrics=ga%3Ausers&dimensions=ga%3Acity&start-index=1001&access_token=ya29.Glx5BkFSvgTuzKvIuldWOloDwUDZGNGynbD2l2uOutPTa5IS6TE7QDyJFhCD9ZyCjDkJRHddYxHffIoRMtC1U0GfdHzA__956pC81pD2DuAJxDq87y4z9OPizuE83Q`
             fetch(url).then(r => {
                 return r.json()
             }).then(dataSecond => {
@@ -195,10 +204,8 @@ class CityTable extends React.Component {
                     }
                     else {
                         other += +dataSecond.rows[j][1]
-
                     }
                 }
-                console.log(other)
                 arrCity.push({
                     "cities": "Inne",
                     "numbers": other

@@ -18,7 +18,7 @@ class SecondBox extends React.Component {
                         <div className="text-value">{this.state.description} </div>
                         <div>Dziś imieniny</div>
                     </div>
-                    <div className="chart-wrapper mt-3 mx-3" style={{ height: "40px" }}>
+                    <div className="chart-wrapper mt-3 mx-3" style={{ height: "70px" }}>
 
                     </div>
                 </div>
@@ -36,5 +36,4 @@ class SecondBox extends React.Component {
         })
     }
 }
-
 export default SecondBox;

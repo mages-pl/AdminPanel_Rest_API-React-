@@ -7,7 +7,6 @@ class FirsBox extends React.Component {
             tempF: "--"
         }
     }
-    
     render() {
         let d = new Date();
         let n = d.toLocaleDateString();

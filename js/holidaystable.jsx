@@ -9,7 +9,6 @@ class HolidaysTable extends React.Component {
     }
     render() {
         return (
-
             <div className="card">
                 <div className="card-header">
                     <i className="fa fa-align-justify"></i> Wejscia uzytkownikow - Swieta</div>
@@ -33,10 +32,10 @@ class HolidaysTable extends React.Component {
                                         <span className="badge badge-success">Active</span>
                                     </td>
                                 </tr>
-                                
+
                             })}
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>
